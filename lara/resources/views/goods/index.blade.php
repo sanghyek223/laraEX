@@ -1,11 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    상품페이지
-</body>
-</html>
+@foreach($goods as $goods)
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-3">
+      <img src="..." class="card-img" alt="">
+    </div>
+    <div class="col-md-9">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{{ route('goods.show', $goods->no) }}">{{ $goods->title }}</a>
+        </h5>
+        <span class="card-text">{{ $goods->contents }}</span>
+        <span class="card-text"><small class="text-muted">{{ $goods->no }}</small></span>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
+

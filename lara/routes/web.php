@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +20,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/goods', 'GoodslistController@index'); 
+Route::get('/goods','GoodsController@index');
 
-Route::get('/goods/create', 'GoodslistController@create'); 
+Route::get('/goods/show/{no}', 'GoodsController@show')->name('goods.show');
