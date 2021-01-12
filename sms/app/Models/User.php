@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Sms_setting;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\SendPurchaseReceipt;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use App\Notifications\SendPurchaseReceipt;
 
 class User extends Authenticatable
 {

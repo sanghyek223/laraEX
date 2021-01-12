@@ -2,7 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Seungmun\Sens\Sms\SmsChannel;
 use Seungmun\Sens\Sms\SmsMessage;
@@ -44,9 +43,9 @@ class SendPurchaseReceipt extends Notification
     public function toSms($notifiable)
     {
         return (new SmsMessage)
-            ->to($notifiable->phone)
-            ->from('01055646224')
-            ->content('Welcome: https://open.kakao.com/o/g3dWlf0')
+            ->to($notifiable->phone_num)
+            ->from($notifiable->default_num)
+            ->content($notifiable->content."".$notifiable->confirm_num)
             ->contentType('COMM')// You can ignore it (default: COMM)
             ->type('SMS');  // You can ignore it (default: SMS)
     }
