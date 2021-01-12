@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Start Up</title>
 
     <style type="text/css">
@@ -45,7 +45,7 @@
 
     </style>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.1.0.min.js" charset="utf-8"></script>
     <script type="text/javascript">
 
         // 이미지 정보들을 담을 배열
@@ -94,16 +94,13 @@
 
 
         function deleteImageAction(index) {
-
+            console.log("index : "+index);
+            console.log("sel length : "+sel_files.length);
 
             sel_files.splice(index, 1);
 
             var img_id = "#img_id_"+index;
             $(img_id).remove();
-
-            console.log("index : "+index);
-            console.log("sel length : "+sel_files.length);
-
         }
 
         function fileUploadAction() {
@@ -126,11 +123,6 @@
                 return;
             }
 
-          console.log(data);
-
-
-var f = $("#test").serialize();
-          console.log(f);
 
         }
 
@@ -154,11 +146,7 @@ var f = $("#test").serialize();
     </div>
 
     <a href="javascript:" class="my_button" onclick="submitAction();">업로드</a>
-    <div style="padding-top: 50px;">
-    <form action="" id="test">
-        <input type="file" id="file" multiple style="display:block;"/>
-    </form>
-</div>
+
 </body>
 </html>
 
