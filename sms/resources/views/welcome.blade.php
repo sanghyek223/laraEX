@@ -17,6 +17,7 @@
         <input type="text" id="confirm_num" name="confirm_num">
         <div id="clockdiv"></div>
         <button onclick="evnent();">count</button>
+        <button onclick="confirm_chcek();">check</button>
         <style>
             #confirm_num {
                 display: none;
@@ -25,7 +26,30 @@
 
         <script>
 
-            function evnent() {
+function confirm_chcek() {
+    console.log('confirm_check');
+    $.ajax({
+                    //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    url: "{{ route('confirm_check') }}",
+                    dataType: 'json',
+                    data: {
+
+                        confirm_check: $('#confirm_num').val()
+
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log("error" + data);
+                    }
+                });
+ }
+  function evnent() {
                 ajax_call();
                 count();
             }

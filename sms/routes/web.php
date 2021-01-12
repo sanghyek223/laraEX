@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/sms','SmsController@index')->name('sms'); //sms 전송
 
 Route::post('/sms/confirm','SmsController@confirm')->name('confirm'); //sms cofirm_num test
+
+Route::post('/sms/confirm_check','SmsController@confirm_num_check')->name('confirm_check'); //sms cofirm_num test
