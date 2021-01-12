@@ -17,4 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/sms','SmsController@index')->name('sms'); //상품 인덱스
+Route::get('/sms','SmsController@index')->name('sms'); //sms 전송
+
+Route::post('/sms/confirm','SmsController@confirm')->name('confirm'); //sms cofirm_num test

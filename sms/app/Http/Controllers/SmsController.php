@@ -12,4 +12,14 @@ class SmsController extends Controller
         //request()->phone->notify(new SendPurchaseReceipt);
         User::find(1)->notify(new SendPurchaseReceipt);
     }
+
+    public function confirm(Request $request) {
+
+        $phone = $request->input('phone');
+        $randomNum = mt_rand(000000, 999999);
+        $result = array();
+        $result = array("phone"=> $phone , "conrirm_num"=> $randomNum);
+
+        return $result;
+    }
 }
