@@ -14,9 +14,10 @@ class SmsSetting extends Migration
     public function up()
     {
         Schema::create('sms_settings', function (Blueprint $table) {
-            $table->string('default_num')->primary();
-            $table->string('category');
+            $table->id();
+            $table->string('default_num',100);
             $table->string('content');
+            $table->string('notice');
         });
     }
 
