@@ -24,7 +24,6 @@ class SmsController extends Controller
         $value = array();
 
         if ($result == 1) {
-
             $sms_result = Sms_setting::find(1);
             $sms_result["phone_num"] = $request->input('u_phone');
             $sms_result["confirm_num"] = $randomNum;

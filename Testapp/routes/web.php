@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () { // App Main page
-    return view('welcome');
+    return view('main.welcome');
 })->name('main_index');
 
 Route::get('/mypage', function () { //마이페이지
@@ -30,7 +30,6 @@ Route::get('/admin/dashboard', function () { //관리자 페이지
         return redirect()->route("main_index");
     }
 })->middleware(['auth'])->name('dashboard');
-
 
 require __DIR__.'/auth.php';
 

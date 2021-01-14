@@ -87,7 +87,7 @@
             <div id="clockdiv"></div>
             <button onclick="evnent_call();">count</button>
             <style>
-                #confirm_sms_cord,#none_div {
+                 #confirm_sms_cord,#none_div {
                     display: none;
                 }
             </style>
@@ -99,9 +99,7 @@
                 $(document).ready(function () {
 
                     $("#sms_cord").keyup(function () {
-
                         $("#password").val($("#sms_cord").val());
-
                     });
 
                 });
@@ -109,7 +107,6 @@
                 function evnent_call() {
 
                     $.ajax({
-                        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
