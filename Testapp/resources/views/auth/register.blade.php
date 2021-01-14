@@ -12,6 +12,19 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
+            <!-- Profile_img -->
+            <div>
+                <x-label for="profile_img" :value="__('Profile_img')"/>
+
+                <x-input
+                    id="profile_img"
+                    class="block mt-1 w-full"
+                    type="file"
+                    name="profile_img"
+                    accept="image/*"
+                    autofocus="autofocus"/>
+            </div>
+
             <!-- Phone -->
             <div>
                 <x-label for="u_phone" :value="__('Phone')"/>

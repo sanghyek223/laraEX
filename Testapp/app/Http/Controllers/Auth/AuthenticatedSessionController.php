@@ -32,9 +32,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user_check = Auth::user();
         $url = RouteServiceProvider::HOME;
 
-        return redirect('/dashboard');
+        if ($user_check->u_level == 5) {
+            $url = '/admin/dashboard';
+        }
+
+        return redirect($url);
     }
 
     /**

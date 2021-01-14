@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,17 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function () { // App Main page
     return view('welcome');
-});
+})->name('main_index');
 
-Route::get('/mypage', function () {
+Route::get('/mypage', function () { //마이페이지
     return view('mypage.mypage');
 })->middleware(['auth'])->name('mypage');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/admin/dashboard', function () { //관리자 페이지
+    $user_check = Auth::user();
+    if($user_check->u_level == 5) {
+        return view('admin.dashboard');
+    }else{
+        return redirect()->route("main_index");
+    }
 })->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
 
