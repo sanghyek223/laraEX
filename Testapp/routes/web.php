@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/mypage', function () {
+    return view('mypage.mypage');
+})->middleware(['auth'])->name('mypage');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -25,3 +29,16 @@ require __DIR__.'/auth.php';
 
 Route::post('/sms_confirm','SmsController@confirm')->name('confirm'); //sms cofirm_num test
 
+Route::get('/goods','GoodsController@index')->name('goods.index'); //상품 인덱스
+
+Route::get('/goods/{goods}', 'GoodsController@show')->name('goods.show'); //상품 상세보기
+
+Route::get('/goods/create/write', 'GoodsController@create')->name('goods.write'); // 상품 업로드 폼
+
+Route::post('/goods/store', 'GoodsController@store')->name('goods.store'); // 상품 업로드
+
+Route::get('/goods/edit/{goods}', 'GoodsController@edit')->name('goods.edit'); //상품 업데이트 폼
+
+Route::put('/goods/up/{goods}', 'GoodsController@update')->name('goods.update'); // 상품 업데이트
+
+Route::delete('/goods/destory/{goods}', 'GoodsController@destroy')->name('goods.destory'); // 상품 삭제

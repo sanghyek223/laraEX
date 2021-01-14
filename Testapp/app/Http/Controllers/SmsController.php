@@ -29,7 +29,7 @@ class SmsController extends Controller
             $sms_result["phone_num"] = $request->input('u_phone');
             $sms_result["confirm_num"] = $randomNum;
             //$sms_result->notify(new SendPurchaseReceipt);
-            $value = array("status" => 200);
+            $value = array("status" => 200,'confirm_num' => $randomNum);
 
         } else {
             $value = array("status" => 500);

@@ -26,6 +26,7 @@
                     name="u_phone"
                     :value="old('u_phone')"
                     required="required"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                     autofocus="autofocus"/>
 
             </div>
@@ -40,6 +41,7 @@
                     type="text"
                     name="sms_cord"
                     required="required"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                     autocomplete="current-password"/>
             </div>
 
@@ -89,7 +91,7 @@
                     display: none;
                 }
             </style>
-            <!-- 스크립트 부분 / 사용한 CDN (jQuery 3.3.1)-->
+
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
             <script type="text/javascript">
@@ -120,11 +122,11 @@
 
                         },
                         success: function (data) {
-                            if (Object.values(data) == 200) {
-                                count();
-                                console.log("성공");
-                            } else {
+                            if (Object.values(data) == 500) {
                                 alert("가입된 회원이 아닙니다.");
+                            } else {
+                                count();
+                                console.log(data);
                             }
                         },
                         error: function (data) {
