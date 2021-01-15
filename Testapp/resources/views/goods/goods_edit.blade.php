@@ -1,9 +1,7 @@
 @extends('layouts.app_layout')
 
-@section('header') @include('common.header') @stop
-
 @section('content')
-<form action="{{ route('goods.update', $goods->no) }}" method="POST">
+<form action="{{ route('goods.update', $goods->goods_no) }}" method="POST">
     @csrf @method('PUT')
     <div class="form-group">
         <label for="category">카테고리</label>
@@ -78,4 +76,3 @@ function uncomma(str) {
    </script>
 @endsection
 
-@section('footer') @include('common.footer') @stop

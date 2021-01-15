@@ -14,7 +14,7 @@ class Goods extends Migration
     public function up()
     {
         Schema::create('goods', function (Blueprint $table) {
-            $table->increments('no');
+            $table->bigIncrements('goods_no');
             $table->unsignedBigInteger('u_id');
             $table->foreign('u_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('category');

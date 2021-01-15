@@ -6,7 +6,6 @@ use App\Models\Goods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class GoodsController extends Controller
 {
@@ -30,12 +29,11 @@ class GoodsController extends Controller
             'goods_content' => $request->input('content'),
             'goods_price' => $request->input('price')
         ]);
-        return redirect()->route('goods.index');
+        return redirect()->route('goods');
     }
     public function show(Goods $goods)
     {
-        $user_check = Auth::user();
-        return view('goods.goods_show', compact('goods'), ['auth_user' => $user_check->id]);
+        return view('goods.goods_show', compact('goods'));
     }
     public function edit(Goods $goods)
     {
@@ -43,17 +41,17 @@ class GoodsController extends Controller
     }
     public function update(Request $request, Goods $goods)
     {
-        DB::table('goods')->where('no', $goods->no)->update([
+        DB::table('goods')->where('goods_no', $goods->goods_no)->update([
             'category' => $request->input('category'),
             'goods_title' => $request->input('title'),
             'goods_content' => $request->input('content'),
             'goods_price' => $request->input('price')
         ]);
-        return redirect()->route('goods.show', $goods->no);
+        return redirect()->route('goods.show', $goods->goods_no);
     }
     public function destroy(Goods $goods)
     {
-        DB::table('goods')->where('no', $goods->no)->delete();
+        DB::table('goods')->where('goods_no', $goods->goods_no)->delete();
         return redirect()->route('goods.index');
     }
     protected function validategoods()

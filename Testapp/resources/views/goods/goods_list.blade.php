@@ -1,5 +1,6 @@
-@extends('layouts.app_layout') @section('header') @include('common.header')
-@stop @section('content')
+@extends('layouts.app_layout')
+
+@section('content')
 
 @foreach($goods as $goods)
 <div class="card mb-3">
@@ -7,10 +8,10 @@
         <div class="col-md-9">
             <div class="card-body">
                 <span class="card-text">
-                    <small class="text-muted">{{ $goods->no }}</small>
+                    <small class="text-muted">{{ $goods->goods_no }}</small>
                 </span>
                 <span>
-                    <a href="{{ route('goods.show', $goods->no) }}">{{ $goods->goods_title }}</a>
+                    <a href="{{ route('goods.show', $goods->goods_no) }}">{{ $goods->goods_title }}</a>
                 </span>
                 <span class="card-text">{{ $goods->goods_content }}</span>
             </div>
@@ -19,8 +20,7 @@
 </div>
 @endforeach
 
-<a href="{{ route('goods.write') }}">글쓰기</a>
-@stop
+<a href="{{ route('goods.create') }}">글쓰기</a>
+@endsection
 
-@section('footer') @include('common.footer')
-@stop
+

@@ -1,8 +1,5 @@
 @extends('layouts.app_layout')
 
-@section('header') @include('common.header')
-@stop
-
 @section('content')
 <h1>글쓰기</h1>
     <form action="{{ route('goods.store') }}" method="post">
@@ -76,5 +73,3 @@
     </script>
 @endsection
 
-@section('footer') @include('common.footer')
-@stop

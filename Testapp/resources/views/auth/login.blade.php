@@ -111,7 +111,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: "{{ route('confirm') }}",
+                        url: "{{ route('confirm_num') }}",
                         dataType: 'json',
                         data: {
 

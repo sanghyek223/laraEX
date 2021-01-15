@@ -1,7 +1,5 @@
 @extends('layouts.app_layout')
 
-@section('header') @include('common.header')
-@stop
 
 @section('content')
 <div>카테고리 : {{ $goods->category }}</div>
@@ -9,13 +7,13 @@
 <div>가격 : {{ $goods->goods_price }} 원</div>
 <div>내용 : {{ $goods->goods_content }}</div>
 
-@if ($goods->u_id == $auth_user)
+{{-- @if ($goods->u_id == $auth_user) --}}
 <a href="{{ route('goods.edit', $goods->no) }}">수정</a>
 <form action="{{ route('goods.destory', $goods->no) }}" onsubmit="return check_del()" method="POST">
 @csrf @method('DELETE')
     <button type="submit">삭제</button>
 </form>
-@endif
+{{-- @endif --}}
 
 @stop
 
@@ -27,4 +25,4 @@ function check_del() {
 </script>
 
 @section('footer') @include('common.footer')
-@stop
+@endsection

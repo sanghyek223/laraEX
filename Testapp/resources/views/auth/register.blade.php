@@ -54,7 +54,7 @@
                 <x-label for="u_nick" :value="__('Nick')"/>
 
                 <x-input
-                    id="u_ick"
+                    id="u_nick"
                     class="block mt-1 w-full"
                     type="text"
                     name="u_nick"

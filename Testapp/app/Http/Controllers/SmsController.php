@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notification;
 class SmsController extends Controller
 {
 
-    public function confirm(Request $request)
+    public function confirm_num(Request $request) // sms msg 보내기
     {
 
         $randomNum = mt_rand(100000, 999999);

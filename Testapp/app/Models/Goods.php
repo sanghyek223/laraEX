@@ -10,7 +10,7 @@ class Goods extends Model
     use HasFactory;
 
     function getRouteKeyName(){
-        return 'no';
+        return 'goods_no';
       }
 
     protected $fillable = ['title', 'content', 'category', 'price'];
