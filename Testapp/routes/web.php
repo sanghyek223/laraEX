@@ -53,7 +53,6 @@ Route::get('/admin/dashboard','AdminController@index')->middleware(['admin'])->n
 
 // 인증번호 Route
 Route::post('/sms_confirm','SmsController@confirm_num')->name('confirm_num'); //sms 인증번호 발송
-Route::post('/register_confirm_num','SmsController@register_confirm_num')->name('register_confirm_num'); //회원가입 sms 인증번호 발송
 
 // 검수자 페이지 Route
 Route::get('/inspector','InspectorController@index')->middleware(['inspector'])->name('inspector.main'); //검수자 페이지
