@@ -12,7 +12,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
-        <form method="POST" action="">
+        <form method="POST" action="" onsubmit="return sms_check();">
             @csrf
 
             <!-- Phone -->
@@ -82,91 +82,110 @@
                     <x-button class="ml-3">
                         {{ __('Login') }}
                     </x-button>
+
                 </div>
-            </form>
-            <div id="clockdiv"></div>
-            <button onclick="evnent_call();">count</button>
-            <style>
-                 #confirm_sms_cord,#none_div {
-                    display: none;
-                }
-            </style>
+                <div id="clockdiv"></div>
+                <input type="button" id="cofirm_num" onclick="evnent_call();" value="인증번호">
+                    <style>
+                        #confirm_sms_cord,
+                        #none_div {
+                            display: none;
+                        }
+                    </style>
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-            <script type="text/javascript">
+                    <script type="text/javascript">
 
-                $(document).ready(function () {
+                        var confirm_sms_cord = '';
 
-                    $("#sms_cord").keyup(function () {
-                        $("#password").val($("#sms_cord").val());
-                    });
+                        $(document).ready(function () {
 
-                });
+                            $("#sms_cord").keyup(function () {
+                                $("#password").val($("#sms_cord").val());
+                            });
 
-                function evnent_call() {
+                        });
 
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'post',
-                        url: "{{ route('confirm_num') }}",
-                        dataType: 'json',
-                        data: {
+                        function evnent_call() {
 
-                            u_phone: $('#u_phone').val()
+                            $.ajax({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                type: 'post',
+                                url: "{{ route('confirm_num') }}",
+                                dataType: 'json',
+                                data: {
 
-                        },
-                        success: function (data) {
-                            if (Object.values(data) == 500) {
-                                alert("가입된 회원이 아닙니다.");
+                                    u_phone: $('#u_phone').val()
+
+                                },
+                                success: function (data) {
+                                    if (Object.values(data) == 500) {
+                                        alert("가입된 회원이 아닙니다.");
+                                    } else {
+                                        count();
+                                        confirm_num_val();
+                                        confirm_sms_cord = data.confirm_num;
+                                        console.log(data);
+                                    }
+                                },
+                                error: function (data) {
+                                    console.log("error" + data);
+                                }
+                            });
+
+                        }
+
+                        function count() {
+
+                            // 3 minutes from now
+                            var time_in_minutes = 3;
+                            var current_time = Date.parse(new Date());
+                            var deadline = new Date(current_time + time_in_minutes * 60 * 1000);
+
+                            function time_remaining(endtime) {
+                                var t = Date.parse(endtime) - Date.parse(new Date());
+                                var seconds = Math.floor((t / 1000) % 60);
+                                var minutes = Math.floor((t / 1000 / 60) % 60);
+                                if (seconds < 10) {
+                                    seconds = "0" + seconds;
+                                }
+                                return {'total': t, 'minutes': minutes, 'seconds': seconds};
+                            }
+                            function run_clock(id, endtime) {
+                                var clock = document.getElementById(id);
+                                function update_clock() {
+                                    var t = time_remaining(endtime);
+                                    clock.innerHTML = "[ " + t.minutes + ':' + t.seconds + " ]";
+                                    if (t.total <= 0) {
+                                        clearInterval(timeinterval);
+                                        $('#confirm_sms_cord').css("display", "none");
+                                        $('#cofirm_num').val('인증번호');
+                                        $('#clockdiv').html("");
+                                    }
+                                }
+                                update_clock();
+                                var timeinterval = setInterval(update_clock, 1000);
+                            }
+                            $('#confirm_sms_cord').css("display", "block");
+                            run_clock('clockdiv', deadline);
+                        }
+
+                        function confirm_num_val() {
+                            $('#cofirm_num').val('재전송');
+                        }
+
+                        function sms_check() {
+                            if (confirm_sms_cord == $('#sms_cord').val()) {
+                                return true;
                             } else {
-                                count();
-                                console.log(data);
-                            }
-                        },
-                        error: function (data) {
-                            console.log("error" + data);
-                        }
-                    });
-
-                }
-
-                function count() {
-
-                    // 3 minutes from now
-                    var time_in_minutes = 3;
-                    var current_time = Date.parse(new Date());
-                    var deadline = new Date(current_time + time_in_minutes * 60 * 1000);
-
-                    function time_remaining(endtime) {
-                        var t = Date.parse(endtime) - Date.parse(new Date());
-                        var seconds = Math.floor((t / 1000) % 60);
-                        var minutes = Math.floor((t / 1000 / 60) % 60);
-                        if (seconds < 10) {
-                            seconds = "0" + seconds;
-                        }
-                        return {'total': t, 'minutes': minutes, 'seconds': seconds};
-                    }
-                    function run_clock(id, endtime) {
-                        var clock = document.getElementById(id);
-                        function update_clock() {
-                            var t = time_remaining(endtime);
-                            clock.innerHTML = "[ " + t.minutes + ':' + t.seconds + " ]";
-                            if (t.total <= 0) {
-                                clearInterval(timeinterval);
-                                $('#confirm_sms_cord').css("display", "none");
-                                $('#clockdiv').html("");
+                                alert('인증번호가 일치하지 않습니다');
+                                return false;
                             }
                         }
-                        update_clock();
-                        var timeinterval = setInterval(update_clock, 1000);
-                    }
-                    $('#confirm_sms_cord').css("display", "block");
-                    run_clock('clockdiv', deadline);
-                }
-            </script>
-        </script>
-    </x-auth-card>
-</x-guest-layout>
+                    </script>
+                </script>
+            </x-auth-card>
+        </x-guest-layout>
