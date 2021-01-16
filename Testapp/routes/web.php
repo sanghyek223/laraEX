@@ -20,6 +20,8 @@ Route::get('/', function () { // App Main page
     return view('main.welcome');
 })->name('main_index');
 
+Route::post('/geo','GeolocationController@main_page')->name('geo_main'); //마이페이지
+
 Route::get('/test', function () { // App Main page
     return view('mypage.mypage_inspector_register');
 });
